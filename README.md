@@ -17,3 +17,6 @@ I want for this project:
 3-Be able to spend/get currency with the correct implementation to prevent "fraud"
 
 4-Implement an email verification.
+
+
+I'll probably use a pretty simple html/css
