@@ -2,14 +2,14 @@
 var socket = new WebSocket("ws://localhost:8080/ws");
 
 let connect = () => {
-    console.log("Attempting Connection...");
+    //console.log("Attempting Connection...");
 
   socket.onopen = () => {
     console.log("Successfully Connected");
   };
 
    socket.onmessage = msg => {
-    console.log(msg.data);
+    //console.log(msg.data);
   }; 
 
   socket.onclose = event => {
@@ -21,8 +21,13 @@ let connect = () => {
   };  
 };
 
-let register = (rt) => {
-  socket.send(JSON.stringify(rt));
+let register = (info) => {
+  info.intent = "register"
+  socket.send(JSON.stringify(info));
+};
+let login = (info) => {
+  info.intent = "login"
+  socket.send(JSON.stringify(info));
 };
 
-export { connect, register };
+export { connect, register, login };

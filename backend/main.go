@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	intent "server/react/IntentHandler"
 	sanitizer "server/react/PasswordHandler"
 
 	"github.com/gorilla/websocket"
@@ -28,14 +29,20 @@ var upgrader = websocket.Upgrader{
 func reader(conn *websocket.Conn) {
 	for {
 		// read in a message
-		messageType, p, err := conn.ReadMessage()
+		messageType, msg, err := conn.ReadMessage()
 		if err != nil {
 			log.Println(err)
 			return
 		}
 		// print out that message for clarity
-		sanitizer.Sanitizer(string(p))
-		if err := conn.WriteMessage(messageType, p); err != nil {
+		vl, err := sanitizer.Sanitizer(string(msg))
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		intent.Intentions(vl)
+
+		if err := conn.WriteMessage(messageType, msg); err != nil {
 			log.Println(err)
 			return
 		}

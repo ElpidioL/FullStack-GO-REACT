@@ -13,7 +13,6 @@ class Register {
 
 function RegisterPage(){
   const [count, setCount] = useState("");
-  let error = "azir"
   let rt = new Register()
   let inputEl = new Register()
   inputEl.email  = useRef(null);
@@ -62,26 +61,3 @@ function RegisterPage(){
 }
 
 export default RegisterPage;
-
-/* class RegisterPage extends Component {
-    constructor(props)  {
-      super(props);
-      connect();
-    }
-    
-    send() {
-      console.log("hello");
-      sendMsg("this.divRef.current.value");
-    }
-  
-    render() {
-      return (
-        <div className="App">
-          <input type="text" />
-          <button onClick={this.send}>Hit</button>
-        </div>  
-      );
-    }
-  }
-  
-export default RegisterPage; */

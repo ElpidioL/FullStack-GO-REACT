@@ -1,0 +1,5 @@
+package IntentHandler
+
+func Intentions() {
+
+}
