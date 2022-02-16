@@ -2,8 +2,7 @@ import { connect, register } from "../Api/socketConnection";
 import { verify } from "../scripts/passwordVerify";
 import { useRef, useState } from "react";
 import classes from "./RegisterPage.module.css";
-import { Component } from 'react';
-import classNames from 'classnames/bind';
+
 class Register {
   constructor(email, name, password) {
     this.email = email

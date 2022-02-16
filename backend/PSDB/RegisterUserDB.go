@@ -37,9 +37,9 @@ func UserRegister(email string, name string, password string) error {
 	case sql.ErrNoRows:
 		//i tried to use .Format for this but to no avail, something was going really wrong
 		currentTime := time.Now()
-		//future := currentTime.AddDate(0, 0, 30)
+		future := currentTime.AddDate(0, 0, 30)
 		today := fmt.Sprintf(`%d-%d-%d`, currentTime.Year(), currentTime.Month(), currentTime.Day())
-		/* expireDate := fmt.Sprintf(`%d-%d-%d`, future.Year(), future.Month(), future.Day())
+		expireDate := fmt.Sprintf(`%d-%d-%d`, future.Year(), future.Month(), future.Day())
 
 		sqlStatement := `
 		INSERT INTO users (email, name, password, date, verify )
@@ -47,32 +47,28 @@ func UserRegister(email string, name string, password string) error {
 		RETURNING id`
 		id := 0
 		err := db.QueryRow(sqlStatement, email, name, password, today, false).Scan(&id)
-		fmt.Println(err)
 		if err != nil {
 			return errors.New("Error to register user.")
 			//panic(err)
 		}
 
-		 	sqlStatement = `
-		INSERT INTO usersInfo (id, credits, userjson, last_update)
+		sqlStatement = `
+		INSERT INTO users_info (id, credits, user_info, last_update)
 		VALUES ($1, $2, $3, $4)`
 
-		err2 := db.QueryRow(sqlStatement, id, 100, "")
+		_, err = db.Exec(sqlStatement, id, 0, "", today)
 
-		if err2 != nil {
-			fmt.Println(err2)
+		if err != nil {
 			return errors.New("Error to register user information. ")
 			//panic(err)
-		}  */
+		}
 
 		sqlStatement = `
-		INSERT INTO emailverify (email, expiredate, verifylink)
+		INSERT INTO email_verify (email, verify_link, expire_date)
 		VALUES ($1, $2, $3)`
 
-		err2 := db.QueryRow(sqlStatement, email, "x", today)
-		fmt.Println(err2)
+		_, err = db.Exec(sqlStatement, email, "x", expireDate)
 		if err != nil {
-			fmt.Println(err2)
 			return errors.New("Error to register user verify link.")
 			//panic(err)
 		}
