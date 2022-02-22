@@ -3,26 +3,11 @@ package PasswordHandler
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/mail"
 	Defaults "server/react/Structure"
 	"strings"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
-func Hash(password string) (string, error) {
-	hash, err := bcrypt.GenerateFromPassword([]byte(password), 14)
-	return string(hash), err
-}
-func CheckHash(password string, hash string) error {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	fmt.Println(err)
-	if err != nil {
-		return errors.New("Password Invalid.")
-	}
-	return err
-}
 func CheckPassword(password string) error {
 	spaces := strings.Fields(password)
 	if len(password) < 8 || len(password) > 100 || len(spaces) > 1 || strings.HasSuffix(password, " ") || strings.HasPrefix(password, " ") {

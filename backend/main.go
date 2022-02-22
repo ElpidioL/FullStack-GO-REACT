@@ -29,24 +29,19 @@ var upgrader = websocket.Upgrader{
 func reader(conn *websocket.Conn) {
 	for {
 		// read in a message
-		messageType, msg, err := conn.ReadMessage()
+		_, ReciMsg, err := conn.ReadMessage()
 		if err != nil {
 			log.Println(err)
 			return
 		}
 		// print out that message for clarity
-		vl, err := sanitizer.Sanitizer(string(msg))
+		vl, err := sanitizer.Sanitizer(string(ReciMsg))
 		if err != nil {
 			fmt.Println(err)
 		}
+		msg := intent.Intentions(&vl)
 
-		intent.Intentions(&vl)
-
-		if err := conn.WriteMessage(messageType, msg); err != nil {
-			log.Println(err)
-			return
-		}
-		if err := conn.WriteMessage(1, []byte("true")); err != nil {
+		if err := conn.WriteMessage(1, []byte(msg)); err != nil {
 			log.Println(err)
 			return
 		}

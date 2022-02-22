@@ -9,7 +9,8 @@ let connect = () => {
   };
 
    socket.onmessage = msg => {
-    //console.log(msg.data);
+    console.log(msg.data);
+    console.log(JSON.parse(msg.data));
   }; 
 
   socket.onclose = event => {

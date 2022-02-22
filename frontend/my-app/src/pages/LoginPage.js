@@ -14,6 +14,9 @@ class Register {
 }
 
 function checkLogin(){
+ /*  if(!token) {
+    return <Login setToken={setToken} />
+  } */
 /*   const [user, setUser] = useState()
   const loggedInUser = localStorage.getItem("user");
   if (loggedInUser) {
@@ -25,14 +28,16 @@ function checkLogin(){
 
 function LoginPage(){
   const navigate = useNavigate();
-  const [count, setCount] = useState("");
+  const [error, setError] = useState("");
+  const [token, setToken] = useState();
   let rt = new Register()
   let inputEl = new Register()
   inputEl.email  = useRef(null);
   inputEl.password = useRef(null);
+  
 
-
-
+  var x = localStorage.getItem("user");
+  console.log(x)
   function send(){
     rt.email = inputEl.email.current.value
     rt.password  =  inputEl.password.current.value
@@ -40,12 +45,12 @@ function LoginPage(){
       connect();
       login(rt);
       //navigate("/register");  
-      localStorage.setItem('user', "response.data")
-      var x = localStorage.getItem("user");
-      console.log(x)
+      localStorage.setItem('user', JSON.stringify(rt))
+      var x = JSON.parse(localStorage.getItem("user"));
+      console.log(x["intent"])
 
     }else{
-      setCount(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
+      setError(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
     }
   }
 
@@ -67,7 +72,7 @@ function LoginPage(){
           <Link to="/Register" className={classes.link}>Register</Link>
 
           <button onClick={send} type="button" className={classes.buttonForm}> Log In</button>
-          <div>{count}</div>
+          <div>{error}</div>
         </form> 
       </div>
     );
