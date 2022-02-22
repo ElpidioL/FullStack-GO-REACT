@@ -1,3 +1,4 @@
+import { Intent } from "../scripts/intentVerify.js";
 // api/index.js
 var socket = new WebSocket("ws://localhost:8080/ws");
 
@@ -9,8 +10,7 @@ let connect = () => {
   };
 
    socket.onmessage = msg => {
-    console.log(msg.data);
-    console.log(JSON.parse(msg.data));
+    Intent(JSON.parse(msg.data))
   }; 
 
   socket.onclose = event => {

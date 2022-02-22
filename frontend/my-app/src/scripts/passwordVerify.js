@@ -1,5 +1,5 @@
 
-let verify = (password, login) => {
+let Verify = (password, login) => {
     var validated =  true;
     if(password.length < 8 || login.length < 6 || password.length > 100 ||  login.length > 100)
         validated = false;
@@ -11,4 +11,4 @@ let verify = (password, login) => {
     return validated ? true : false;
 }
 
-export { verify};
+export { Verify};

@@ -1,5 +1,5 @@
 import { connect, register } from "../Api/socketConnection";
-import { verify } from "../scripts/passwordVerify";
+import { Verify } from "../scripts/passwordVerify";
 import { useRef, useState } from "react";
 import classes from "./RegisterPage.module.css";
 
@@ -25,7 +25,7 @@ function RegisterPage(){
     rt.email = inputEl.email.current.value
     rt.name = inputEl.name.current.value
     rt.password  =  inputEl.password.current.value
-    if(verify(rt.password, rt.name)){
+    if(Verify(rt.password, rt.name)){
       connect();
       register(rt);
       setCount(<p className={classes.sucess}>Successfully registered</p>)

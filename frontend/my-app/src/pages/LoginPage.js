@@ -1,5 +1,5 @@
 import { connect, login } from "../Api/socketConnection";
-import { verify } from "../scripts/passwordVerify";
+import { Verify } from "../scripts/passwordVerify";
 import { useRef, useState } from "react";
 import classes from "./LoginPage.module.css";
 import {Link} from 'react-router-dom'
@@ -35,20 +35,13 @@ function LoginPage(){
   inputEl.email  = useRef(null);
   inputEl.password = useRef(null);
   
-
-  var x = localStorage.getItem("user");
-  console.log(x)
   function send(){
     rt.email = inputEl.email.current.value
     rt.password  =  inputEl.password.current.value
-    if(verify(rt.password, rt.email)){
+    if(Verify(rt.password, rt.email)){
       connect();
       login(rt);
-      //navigate("/register");  
-      localStorage.setItem('user', JSON.stringify(rt))
-      var x = JSON.parse(localStorage.getItem("user"));
-      console.log(x["intent"])
-
+      
     }else{
       setError(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
     }
