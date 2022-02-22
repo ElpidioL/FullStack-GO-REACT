@@ -40,7 +40,7 @@ func reader(conn *websocket.Conn) {
 			fmt.Println(err)
 		}
 
-		intent.Intentions(vl)
+		intent.Intentions(&vl)
 
 		if err := conn.WriteMessage(messageType, msg); err != nil {
 			log.Println(err)

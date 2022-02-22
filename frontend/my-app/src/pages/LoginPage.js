@@ -13,6 +13,16 @@ class Register {
   }
 }
 
+function checkLogin(){
+/*   const [user, setUser] = useState()
+  const loggedInUser = localStorage.getItem("user");
+  if (loggedInUser) {
+    const foundUser = JSON.parse(loggedInUser);
+    console.log(foundUser)
+    setUser(foundUser);
+  } */
+}
+
 function LoginPage(){
   const navigate = useNavigate();
   const [count, setCount] = useState("");
@@ -29,7 +39,11 @@ function LoginPage(){
     if(verify(rt.password, rt.email)){
       connect();
       login(rt);
-      //navigate("/register");
+      //navigate("/register");  
+      localStorage.setItem('user', "response.data")
+      var x = localStorage.getItem("user");
+      console.log(x)
+
     }else{
       setCount(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
     }

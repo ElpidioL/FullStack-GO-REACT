@@ -5,25 +5,23 @@ import (
 	"errors"
 	"fmt"
 	"net/mail"
+	Defaults "server/react/Structure"
 	"strings"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
-type Register struct {
-	Email    string `json:"email"`
-	Name     string `json:"name"`
-	Password string `json:"password"`
-	Intent   string `json:"intent"`
-}
-
 func Hash(password string) (string, error) {
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(hash), err
 }
-func CheckHash(password string, hash string) bool {
+func CheckHash(password string, hash string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
+	fmt.Println(err)
+	if err != nil {
+		return errors.New("Password Invalid.")
+	}
+	return err
 }
 func CheckPassword(password string) error {
 	spaces := strings.Fields(password)
@@ -49,8 +47,8 @@ func CheckName(name string) error {
 	return nil
 }
 
-func Sanitizer(passJson string) (Register, error) {
-	registerUser := Register{}
+func Sanitizer(passJson string) (Defaults.Register, error) {
+	registerUser := Defaults.Register{}
 	err := json.Unmarshal([]byte(passJson), &registerUser)
 	if err != nil {
 		return registerUser, errors.New("Couldn't parse the json.")
@@ -72,8 +70,10 @@ func Sanitizer(passJson string) (Register, error) {
 		}
 		passwordHash, err := Hash(registerUser.Password)
 		if err != nil {
-			fmt.Println(passwordHash)
 			return registerUser, errors.New("Fail to hash")
+		}
+		if registerUser.Intent == "register" {
+			registerUser.Password = passwordHash
 		}
 
 	} else if registerUser.Intent == "login" {
