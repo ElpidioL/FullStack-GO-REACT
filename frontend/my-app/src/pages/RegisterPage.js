@@ -52,7 +52,7 @@ function RegisterPage(){
           <label htmlFor ="password" >Password</label>
           <input type="password" placeholder="Password" id="password" ref={inputEl.password}/>
 
-          <button onClick={send} type="button">Log In</button>
+          <button onClick={send} type="button">Register</button>
           <div>{count}</div>
         </form> 
       </div>

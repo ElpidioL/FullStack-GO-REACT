@@ -24,9 +24,9 @@ func Intentions(choice *Defaults.Register) string {
 		fmt.Println(err)
 		token, err := pass.CreateToken()
 		if err != nil {
-			return fmt.Sprintf(`{"intent":"error", "msg":"Fail to create Token"}`)
+			return fmt.Sprintf(`{"intent":"error", "msg":"Fail to create Colour"}`)
 		}
-		return fmt.Sprintf(`{"intent":"token","token":"%s"}`, token)
+		return fmt.Sprintf(`{"intent":"colour","colour":"%s"}`, token)
 	}
 	return `{"intent":"error", "msg":"NotSure"}`
 }

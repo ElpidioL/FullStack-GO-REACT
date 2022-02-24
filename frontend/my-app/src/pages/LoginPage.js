@@ -3,7 +3,7 @@ import { Verify } from "../scripts/passwordVerify";
 import { useRef, useState } from "react";
 import classes from "./LoginPage.module.css";
 import {Link} from 'react-router-dom'
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Navigate } from "react-router-dom";
 
 
 class Register {
@@ -11,19 +11,6 @@ class Register {
     this.email = email 
     this.password = password
   }
-}
-
-function checkLogin(){
- /*  if(!token) {
-    return <Login setToken={setToken} />
-  } */
-/*   const [user, setUser] = useState()
-  const loggedInUser = localStorage.getItem("user");
-  if (loggedInUser) {
-    const foundUser = JSON.parse(loggedInUser);
-    console.log(foundUser)
-    setUser(foundUser);
-  } */
 }
 
 function LoginPage(){
@@ -41,7 +28,8 @@ function LoginPage(){
     if(Verify(rt.password, rt.email)){
       connect();
       login(rt);
-      
+
+      //navigate("../", { replace: true });
     }else{
       setError(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
     }
