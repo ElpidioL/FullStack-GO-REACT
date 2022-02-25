@@ -1,7 +1,6 @@
 package PasswordHandler
 
 import (
-	"encoding/json"
 	"errors"
 	"net/mail"
 	Defaults "server/react/Structure"
@@ -32,12 +31,7 @@ func CheckName(name string) error {
 	return nil
 }
 
-func Sanitizer(passJson string) (Defaults.Register, error) {
-	registerUser := Defaults.Register{}
-	err := json.Unmarshal([]byte(passJson), &registerUser)
-	if err != nil {
-		return registerUser, errors.New("Couldn't parse the json.")
-	}
+func Sanitizer(registerUser Defaults.Register) (Defaults.Register, error) {
 
 	//basic verifications.
 	if registerUser.Intent == "register" {

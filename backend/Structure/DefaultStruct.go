@@ -5,4 +5,10 @@ type Register struct {
 	Name     string `json:"name"`
 	Password string `json:"password"`
 	Intent   string `json:"intent"`
+	Msg      string `json:"msg"`
+}
+
+type IntentDefine struct {
+	Intent string `json:"intent"`
+	Msg    string `json:"msg"`
 }

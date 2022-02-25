@@ -1,4 +1,4 @@
-import { connect, login } from "../Api/socketConnection";
+import { Colour, Connect, Login } from "../Api/socketConnection";
 import { Verify } from "../scripts/passwordVerify";
 import { useRef, useState } from "react";
 import classes from "./LoginPage.module.css";
@@ -26,10 +26,10 @@ function LoginPage(){
     rt.email = inputEl.email.current.value
     rt.password  =  inputEl.password.current.value
     if(Verify(rt.password, rt.email)){
-      connect();
-      login(rt);
+      Connect();
+      Login(rt);
 
-      //navigate("../", { replace: true });
+      navigate("../", { replace: true });
     }else{
       setError(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
     }

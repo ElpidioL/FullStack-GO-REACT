@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	intent "server/react/IntentHandler"
-	sanitizer "server/react/PasswordHandler"
 
 	"github.com/gorilla/websocket"
 )
@@ -34,12 +33,7 @@ func reader(conn *websocket.Conn) {
 			log.Println(err)
 			return
 		}
-		// print out that message for clarity
-		vl, err := sanitizer.Sanitizer(string(ReciMsg))
-		if err != nil {
-			fmt.Println(err)
-		}
-		msg := intent.Intentions(&vl)
+		msg := intent.Intentions(ReciMsg)
 
 		if err := conn.WriteMessage(1, []byte(msg)); err != nil {
 			log.Println(err)

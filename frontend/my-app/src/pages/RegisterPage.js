@@ -1,9 +1,9 @@
-import { connect, register } from "../Api/socketConnection";
+import { Connect, Register } from "../Api/socketConnection";
 import { Verify } from "../scripts/passwordVerify";
 import { useRef, useState } from "react";
 import classes from "./RegisterPage.module.css";
 
-class Register {
+class RegisterPerson {
   constructor(email, name, password) {
     this.email = email
     this.name = name 
@@ -13,8 +13,8 @@ class Register {
 
 function RegisterPage(){
   const [count, setCount] = useState("");
-  let rt = new Register()
-  let inputEl = new Register()
+  let rt = new RegisterPerson()
+  let inputEl = new RegisterPerson()
   inputEl.email  = useRef(null);
   inputEl.name  = useRef(null);
   inputEl.password = useRef(null);
@@ -26,8 +26,8 @@ function RegisterPage(){
     rt.name = inputEl.name.current.value
     rt.password  =  inputEl.password.current.value
     if(Verify(rt.password, rt.name)){
-      connect();
-      register(rt);
+      Connect();
+      Register(rt);
       setCount(<p className={classes.sucess}>Successfully registered</p>)
     }else{
       setCount(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
