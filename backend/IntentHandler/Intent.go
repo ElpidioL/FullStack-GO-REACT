@@ -17,7 +17,12 @@ func Intentions(choice []byte) string {
 	}
 
 	if Intents.Intent == "colour" {
-		fmt.Println("a")
+		LoginToken := Defaults.TokenAcess{}
+		err = json.Unmarshal([]byte(string(choice)), &LoginToken)
+		if err != nil {
+			return `{"intent":"error", "msg":"Fail to parse JSON"}`
+		}
+
 	}
 
 	if Intents.Intent == "register" || Intents.Intent == "login" {
@@ -48,7 +53,7 @@ func Intentions(choice []byte) string {
 			if err != nil {
 				return fmt.Sprintf(`{"intent":"error", "msg":"Fail to create Colour"}`)
 			}
-			return fmt.Sprintf(`{"intent":"colour","colour":"%s"}`, token)
+			return fmt.Sprintf(`{"intent":"colour","colour":"%s", "email":"%s"}`, token, registerUser.Email)
 		}
 	}
 	return `{"intent":"error", "msg":"NotSure"}`

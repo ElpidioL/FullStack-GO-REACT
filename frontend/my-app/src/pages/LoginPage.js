@@ -1,9 +1,9 @@
-import { Colour, Connect, Login } from "../Api/socketConnection";
+import { Connect, Login } from "../Api/socketConnection";
 import { Verify } from "../scripts/passwordVerify";
 import { useRef, useState } from "react";
 import classes from "./LoginPage.module.css";
 import {Link} from 'react-router-dom'
-import { useNavigate,Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 class Register {
@@ -13,15 +13,14 @@ class Register {
   }
 }
 
-function LoginPage(){
+function LoginPage(props){
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [token, setToken] = useState();
   let rt = new Register()
   let inputEl = new Register()
   inputEl.email  = useRef(null);
   inputEl.password = useRef(null);
-  
+  console.log(props.Email)
   function send(){
     rt.email = inputEl.email.current.value
     rt.password  =  inputEl.password.current.value

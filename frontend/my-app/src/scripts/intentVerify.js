@@ -9,6 +9,7 @@ let Intent = (json) => {
         var expireDate = new Date();
         expireDate.setDate(expireDate.getDate() + 30);
         document.cookie = `Colour=${json.colour}; expires=${expireDate}`;
+        document.cookie = `Email=${json.email}; expires=${expireDate}`;
     }
 }
 

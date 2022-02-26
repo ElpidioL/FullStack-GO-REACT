@@ -1,15 +1,18 @@
 import classes from "./IndexPage.module.css";
 import { Connect,Colour,  } from "../Api/socketConnection";
+import { useState } from "react";
+
+
 
 function IndexPage(props){
   const [info, setInfo] = useState("");
-
+  
   function LoadConfig() {
     Connect();
-    Colour(props.Auth);
+    Colour(props.Auth, props.Email);
   }
-  LoadConfig(myGreeting, 50);
-
+  setTimeout(LoadConfig, 50);
+ 
   let test = false
     if(test){
       return (

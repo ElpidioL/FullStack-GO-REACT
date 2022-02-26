@@ -6,11 +6,16 @@ import IndexPage from './pages/IndexPage';
 import { PrivateRoute } from './PrivateRoute.js';
 
 function App() {
-  let isAuthenticated
-  let value = document.cookie.split("=");
+  let colour; let email
+  let value = document.cookie.split(/[;= ]+/);
+
+  console.log(value)
   for (let i = 0; i < value.length; i++){
     if (value[i] === `Colour`){
-      isAuthenticated = value[i+1]
+      colour = value[i+1]
+    }
+    if (value[i] === `Email`){
+      email = value[i+1]
     }
   }
   return (
@@ -18,10 +23,10 @@ function App() {
       <Routes>
        <Route path="/" element={
             <PrivateRoute>
-              <IndexPage  Auth={isAuthenticated}/>
+              <IndexPage Auth={colour} Email={email}/>
             </PrivateRoute>
         }/>
-        <Route path="/login" element={<LoginPage/>} exact />
+        <Route path="/login" element={<LoginPage Email={email}/>} exact />
         <Route path="/register" element={<RegisterPage/>} exact />
       </Routes>
 

@@ -36,11 +36,11 @@ let Login = (info) => {
   info.intent = "login"
   socket.send(JSON.stringify(info));
 };
-let Colour = (info) => {
+let Colour = (colour, email) => {
   let infoSend = new SocketSend
   infoSend.intent = "colour"
-  infoSend.msg = info
-  console.log(JSON.stringify(infoSend))
+  infoSend.colour = colour
+  infoSend.email = email
   socket.send(JSON.stringify(infoSend));
 };
 
