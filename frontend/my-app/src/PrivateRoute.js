@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
+import { GetCookies } from "./scripts/getCookies";
 
 export const PrivateRoute = ({ children}) => {
-  
-  console.log(children.props.Auth , children.props.Email)
-  if (children.props.Auth && children.props.Email) {
+  GetCookies()
+
+  if (window.colour && window.email) {
     return children
   }
       

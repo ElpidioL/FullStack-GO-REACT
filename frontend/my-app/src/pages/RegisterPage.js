@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { Connect, Register } from "../Api/socketConnection";
 import { Verify } from "../scripts/passwordVerify";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import classes from "./RegisterPage.module.css";
 
 class RegisterPerson {
@@ -12,13 +13,22 @@ class RegisterPerson {
 }
 
 function RegisterPage(){
+  const navigate = useNavigate();
   const [count, setCount] = useState("");
   let rt = new RegisterPerson()
   let inputEl = new RegisterPerson()
   inputEl.email  = useRef(null);
   inputEl.name  = useRef(null);
   inputEl.password = useRef(null);
-
+  
+  function Nav() {
+    navigate("../", { replace: true });
+  }
+  useEffect(() => {
+    if(window.colour && window.email){
+      Nav()
+     }
+  })
 
 
   function send(){
@@ -29,6 +39,8 @@ function RegisterPage(){
       Connect();
       Register(rt);
       setCount(<p className={classes.sucess}>Successfully registered</p>)
+
+      navigate("../", { replace: true });
     }else{
       setCount(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
     }

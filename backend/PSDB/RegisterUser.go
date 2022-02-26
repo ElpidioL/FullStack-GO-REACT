@@ -69,6 +69,7 @@ func UserRegister(email string, name string, password string) error {
 
 		_, err = db.Exec(sqlStatement, email, "x", expireDate)
 		if err != nil {
+			fmt.Println(err)
 			return errors.New("Error to register user verify link.")
 			//panic(err)
 		}

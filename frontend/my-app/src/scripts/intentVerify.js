@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom";
 
 let Intent = (json) => {
     if (json.intent === "error"){
+        console.log(json)
 
     }else if(json.intent === "success"){
+        console.log(json)
 
     }else if(json.intent === "colour"){
         var expireDate = new Date();
@@ -14,6 +15,3 @@ let Intent = (json) => {
 }
 
 export {Intent};
-
-/* var value = document.cookie;
-console.log(value) */

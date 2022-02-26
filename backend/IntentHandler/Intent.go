@@ -22,7 +22,7 @@ func Intentions(choice []byte) string {
 		if err != nil {
 			return `{"intent":"error", "msg":"Fail to parse JSON"}`
 		}
-
+		return `{"intent":"success", "msg":"Working On It"}`
 	}
 
 	if Intents.Intent == "register" || Intents.Intent == "login" {
@@ -56,5 +56,5 @@ func Intentions(choice []byte) string {
 			return fmt.Sprintf(`{"intent":"colour","colour":"%s", "email":"%s"}`, token, registerUser.Email)
 		}
 	}
-	return `{"intent":"error", "msg":"NotSure"}`
+	return `{"intent":"error", "msg":"Not in a if"}`
 }
