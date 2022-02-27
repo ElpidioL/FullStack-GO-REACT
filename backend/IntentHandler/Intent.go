@@ -61,7 +61,6 @@ func Intentions(choice []byte) string {
 			if err != nil {
 				return fmt.Sprintf(`{"intent":"error", "msg":"%s"}`, err.Error())
 			}
-			//info, err := DB.LoginUserToken(token, registerUser.Email)
 			return fmt.Sprintf(`{"intent":"colour","colour":"%s", "email":"%s"}`, token, registerUser.Email)
 		}
 	}

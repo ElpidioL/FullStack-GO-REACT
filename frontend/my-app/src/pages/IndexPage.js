@@ -12,7 +12,7 @@ function deleteCookies(){
   function Nav() {
     window.location.reload();
   }
-  setTimeout(Nav, 100); 
+  setTimeout(Nav, 200); 
 }
 
 
@@ -51,9 +51,8 @@ function IndexPage(){
     }else{
       return (
         <div className={classes.IndexPage}>
-            <h3>Login Here</h3>
-            <h1>sadasdasd</h1>
-            <p>{credits}, {info}, {lastUpdate}, {isLoading}</p>
+            <h1>Hello {GetEmail()}</h1>
+            <p>Credits: {credits}, <br/> Info: {info},  <br/> Last update: {lastUpdate}</p>
         </div>
       )
     }

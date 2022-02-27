@@ -56,7 +56,7 @@ func UserRegister(email string, name string, password string) error {
 		INSERT INTO users_info (id, credits, user_info, last_update)
 		VALUES ($1, $2, $3, $4)`
 
-		_, err = db.Exec(sqlStatement, id, 0, " ", today)
+		_, err = db.Exec(sqlStatement, id, 0, "Empty", today)
 
 		if err != nil {
 			return errors.New("Error to register user information. ")
