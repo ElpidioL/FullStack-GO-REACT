@@ -66,9 +66,5 @@ func Sanitizer(registerUser Defaults.Register) (Defaults.Register, error) {
 			return registerUser, err
 		}
 	}
-	//err = DB.UserRegister(registerUser.Email, registerUser.Name, passwordHash)
-	//fmt.Println(err)
 	return registerUser, nil
 }
-
-//errors.New("empty name")

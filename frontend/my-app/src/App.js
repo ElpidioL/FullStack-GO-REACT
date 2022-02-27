@@ -4,10 +4,8 @@ import RegisterPage from './pages/RegisterPage.js';
 import LoginPage from './pages/LoginPage.js'; 
 import IndexPage from './pages/IndexPage'; 
 import { PrivateRoute } from './PrivateRoute.js';
-import {GetCookies} from './scripts/getCookies.js'
 
 function App() {
-  GetCookies()
 
   return (
    

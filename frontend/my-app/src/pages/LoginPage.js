@@ -3,7 +3,8 @@ import {Link, useNavigate} from 'react-router-dom'
 import { Connect, Login } from "../Api/socketConnection";
 import { Verify } from "../scripts/passwordVerify";
 import classes from "./LoginPage.module.css";
-import { GetCookies } from "../scripts/getCookies";
+import { GetColour, GetEmail } from "../scripts/getCookies";
+import { render } from "react-dom";
 
 class Register {
   constructor(email, password) {
@@ -25,7 +26,7 @@ function LoginPage(){
   }
   
   useEffect(() => {
-    if(window.colour && window.email){
+    if(GetColour() && GetEmail()){
       Nav()
      }
   })
@@ -36,15 +37,12 @@ function LoginPage(){
     if(Verify(rt.password, rt.email)){
       Connect();
       Login(rt);
-      GetCookies();
-      
-      setTimeout(Nav(), 1100); 
+      setTimeout(Nav, 1100); 
     }else{
       setError(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)
     }
   }
 
-  
     return (
       <div>
         <div className={classes.background}>

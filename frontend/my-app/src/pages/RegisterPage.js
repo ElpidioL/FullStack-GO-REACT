@@ -3,6 +3,7 @@ import { Connect, Register } from "../Api/socketConnection";
 import { Verify } from "../scripts/passwordVerify";
 import { useRef, useState, useEffect } from "react";
 import classes from "./RegisterPage.module.css";
+import {GetColour, GetEmail} from "../scripts/getCookies.js"
 
 class RegisterPerson {
   constructor(email, name, password) {
@@ -25,7 +26,7 @@ function RegisterPage(){
     navigate("../", { replace: true });
   }
   useEffect(() => {
-    if(window.colour && window.email){
+    if(GetColour() && GetEmail()){
       Nav()
      }
   })

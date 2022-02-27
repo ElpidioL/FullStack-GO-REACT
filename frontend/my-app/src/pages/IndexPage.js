@@ -1,40 +1,60 @@
+import { useState, useEffect } from "react";
 import classes from "./IndexPage.module.css";
 import { Connect,Colour,  } from "../Api/socketConnection";
-import { useState } from "react";
-import { GetCookies } from "../scripts/getCookies";
+import { GetEmail, GetColour, GetCredits, GetInfo, GetUpdate } from "../scripts/getCookies";
 
 function deleteCookies(){
   document.cookie = "Email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   document.cookie = "Colour=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  GetCookies()
+  document.cookie = `Credits=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  document.cookie = `Info=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  document.cookie = `Last=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   function Nav() {
     window.location.reload();
   }
   setTimeout(Nav, 100); 
 }
 
+
 function IndexPage(){
-  //const [info, setInfo] = useState("");
-  function LoadConfig() {
-    Connect();
-    Colour(window.colour, window.email);
-  }
-  setTimeout(LoadConfig, 50); 
-  let test = false
-    if(test){
+  const [isLoading, setIsLoading] = useState(true);
+  const [credits, setCredits] = useState(0);
+  const [info, setInfo] = useState("");
+  const [lastUpdate, setLastUpdate] = useState("");
+  
+ 
+
+  useEffect(() => {
+    function LoadConfig() {
+      Connect();
+      Colour(GetColour(), GetEmail());
+    }
+    setTimeout(LoadConfig, 50);
+    const timer = setTimeout(() => {
+      setIsLoading(true)
+      setCredits(GetCredits());
+      setInfo(GetInfo());
+      setLastUpdate(GetUpdate());
+      setIsLoading(false)
+    }, 500);
+    return () => {clearTimeout(timer);}
+  }, []);
+
+
+    if(isLoading){
+      return (
+        <div className={classes.IndexPage}>
+          <h1>Loading...</h1>
+          <button onClick={deleteCookies}>clear</button>
+        </div>
+        )
+    }else{
       return (
         <div className={classes.IndexPage}>
             <h3>Login Here</h3>
             <h1>sadasdasd</h1>
-            <p>adasdasd</p>
+            <p>{credits}, {info}, {lastUpdate}, {isLoading}</p>
         </div>
-      )
-    }else{
-      return (
-      <div className={classes.IndexPage}>
-        <h1>Loading...</h1>
-        <button onClick={deleteCookies}>clear</button>
-      </div>
       )
     }
 }

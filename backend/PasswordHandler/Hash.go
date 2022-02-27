@@ -2,7 +2,6 @@ package PasswordHandler
 
 import (
 	"errors"
-	"fmt"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -17,7 +16,6 @@ func SmallHash(password string) (string, error) {
 }
 func CheckHash(password string, hash string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	fmt.Println(err)
 	if err != nil {
 		return errors.New("Password Invalid.")
 	}

@@ -9,7 +9,6 @@ import (
 )
 
 func Intentions(choice []byte) string {
-
 	Intents := Defaults.IntentDefine{}
 	err := json.Unmarshal([]byte(string(choice)), &Intents)
 	if err != nil {
@@ -17,12 +16,17 @@ func Intentions(choice []byte) string {
 	}
 
 	if Intents.Intent == "colour" {
+
 		LoginToken := Defaults.TokenAcess{}
 		err = json.Unmarshal([]byte(string(choice)), &LoginToken)
 		if err != nil {
 			return `{"intent":"error", "msg":"Fail to parse JSON"}`
 		}
-		return `{"intent":"success", "msg":"Working On It"}`
+		info, err := DB.LoginUserToken(LoginToken.Colour, LoginToken.Email)
+		if err != nil {
+			return `{"intent":"error", "msg":"Fail to Colour"}`
+		}
+		return info
 	}
 
 	if Intents.Intent == "register" || Intents.Intent == "login" {
@@ -45,14 +49,19 @@ func Intentions(choice []byte) string {
 
 		}
 		if Intents.Intent == "login" {
-			err := DB.LoginUser(registerUser.Email, registerUser.Password)
-			if err != nil {
-				return fmt.Sprintf(`{"intent":"error", "msg":"%s"}`, err.Error())
-			}
 			token, err := pass.CreateToken()
 			if err != nil {
 				return fmt.Sprintf(`{"intent":"error", "msg":"Fail to create Colour"}`)
 			}
+			hashToken, err := pass.SmallHash(token)
+			if err != nil {
+				return fmt.Sprintf(`{"intent":"error", "msg":"Fail to create HColour"}`)
+			}
+			err = DB.LoginUser(registerUser.Email, registerUser.Password, hashToken)
+			if err != nil {
+				return fmt.Sprintf(`{"intent":"error", "msg":"%s"}`, err.Error())
+			}
+			//info, err := DB.LoginUserToken(token, registerUser.Email)
 			return fmt.Sprintf(`{"intent":"colour","colour":"%s", "email":"%s"}`, token, registerUser.Email)
 		}
 	}
