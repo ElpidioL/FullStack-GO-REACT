@@ -13,14 +13,11 @@ func LoginUserToken(token string, email string) (string, error) {
 		"password=%s dbname=%s sslmode=disable",
 		DbInfo.Host, DbInfo.Port, DbInfo.User, DbInfo.Password, DbInfo.Dbname)
 
-	//starting db
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		panic(err)
 	}
-	//don't forget to close it
 	defer db.Close()
-	//ping to check if its working
 	err = db.Ping()
 	if err != nil {
 		panic(err)
